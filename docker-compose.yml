@@ -1,0 +1,57 @@
+volumes:
+  pg_data_youtubeclone:
+
+networks:
+  youtube-network:
+    driver: bridge
+    ipam:
+     driver: default
+     config:
+       - subnet: 172.199.0.0/16
+    driver_opts:
+      com.docker.network.bridge.name: br_youtubeclone
+
+services:
+  backend:
+    container_name: backend
+    build: ./youtubeclone-backend
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./youtubeclone-backend:/backend
+      - ./static:/backend/static
+    networks:
+      - youtube-network
+    env_file: youtubeclone-backend/.env
+    environment:
+      DEBUG: 'true'
+    # command: /usr/local/gunicorn youtube.home.wsgi:application -w 2 -b :8000
+    # command: python manage.py runserver 0.0.0.0:8000
+    command: sh -c "python manage.py makemigrations &&
+                    python manage.py migrate &&
+                    gunicorn home.wsgi:application -w 2 --bind 0.0.0.0:8000"
+
+  postgres:
+    restart: always
+    image: postgres:12
+    env_file:
+      - youtubeclone-backend/.env
+    ports:
+      - "5432:5432"
+    networks:
+      - youtube-network
+    volumes:
+      - pg_data_youtubeclone:/var/lib/postgresql/data/
+
+  frontend:
+    container_name: frontend
+    build: ./youtubeclone-frontend
+    env_file:
+      - youtubeclone-frontend/.env
+    networks:
+      - youtube-network
+    ports:
+      - 5000:5000
+    volumes:
+      - ./youtubeclone-frontend:/frontend
