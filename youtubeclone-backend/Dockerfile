@@ -1,7 +1,7 @@
 #FROM keymetrics/pm2:latest-alpine
 FROM node:22-alpine3.19 AS build-stage
 # COPY package.json package-lock.json /app
-WORKDIR /app
+WORKDIR /backend
 COPY . .
 RUN npm --verbose install
 #RUN npm install -g serve
