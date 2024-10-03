@@ -10,8 +10,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./youtubeclone-backend:/backend
-      - ./youtubeclone-frontend:/frontend
+      - .:/backend
       - ./static:/backend/static
     env_file: 
       - .env
