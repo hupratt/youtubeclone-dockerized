@@ -14,14 +14,13 @@ networks:
 services:
   backend:
     container_name: youtubeclone-backend
-    build: ./youtubeclone-backend
+    build: .
     restart: always
     ports:
       - "3000:3000"
     volumes:
       - ./youtubeclone-backend:/backend
       - ./static:/backend/static
-      - ./youtubeclone-frontend:/app
     networks:
       - youtube-network
     env_file: 
