@@ -4,6 +4,7 @@ FROM node:12-alpine AS build-stage
 # COPY package.json package-lock.json /app
 WORKDIR /app
 COPY . .
+COPY package*.json ./
 RUN npm --verbose install
 #RUN npm install -g serve
 RUN npm install -g pm2
@@ -15,6 +16,7 @@ FROM node:22-alpine3.19 AS release-stage
 # COPY package.json package-lock.json /app
 WORKDIR /backend
 COPY . .
+COPY package*.json ./
 RUN npm --verbose install
 #RUN npm install -g serve
 # RUN npm install -g pm2
