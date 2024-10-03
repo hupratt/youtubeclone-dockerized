@@ -25,7 +25,7 @@ services:
     networks:
       - youtube-network
     env_file: 
-      - youtubeclone-backend/.env
+      - .env
     # environment:
     #   DEBUG: 'true'
 
@@ -33,7 +33,7 @@ services:
     restart: always
     image: postgres:12
     env_file:
-      - youtubeclone-backend/.env
+      - .env
     ports:
       - "5432:5432"
     networks:
