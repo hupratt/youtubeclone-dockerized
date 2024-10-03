@@ -1,5 +1,5 @@
 #FROM keymetrics/pm2:latest-alpine
-FROM node:12-alpine as build-stage
+FROM node:12-alpine AS build-stage
 # COPY package.json package-lock.json /app
 WORKDIR /app
 COPY . .

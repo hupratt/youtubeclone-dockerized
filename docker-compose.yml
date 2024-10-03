@@ -13,24 +13,19 @@ networks:
 
 services:
   backend:
-    container_name: backend
+    container_name: youtubeclone-backend
     build: ./youtubeclone-backend
     restart: always
     ports:
-      - "8000:8000"
+      - "3000:3000"
     volumes:
       - ./youtubeclone-backend:/backend
       - ./static:/backend/static
     networks:
       - youtube-network
     env_file: youtubeclone-backend/.env
-    environment:
-      DEBUG: 'true'
-    # command: /usr/local/gunicorn youtube.home.wsgi:application -w 2 -b :8000
-    # command: python manage.py runserver 0.0.0.0:8000
-    command: sh -c "python manage.py makemigrations &&
-                    python manage.py migrate &&
-                    gunicorn home.wsgi:application -w 2 --bind 0.0.0.0:8000"
+    # environment:
+    #   DEBUG: 'true'
 
   postgres:
     restart: always
@@ -43,9 +38,10 @@ services:
       - youtube-network
     volumes:
       - pg_data_youtubeclone:/var/lib/postgresql/data/
+      - ./backups:/var/backups
 
   frontend:
-    container_name: frontend
+    container_name: youtubeclone-frontend
     build: ./youtubeclone-frontend
     env_file:
       - youtubeclone-frontend/.env
