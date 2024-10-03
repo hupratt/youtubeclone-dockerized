@@ -19,7 +19,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./youtubeclone-backend:/backend
+      - ./youtubeclone-backend:/app
       - ./static:/backend/static
     networks:
       - youtube-network
@@ -51,4 +51,4 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - ./youtubeclone-frontend:/frontend
+      - ./youtubeclone-frontend:/app
