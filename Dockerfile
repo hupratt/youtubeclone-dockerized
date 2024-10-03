@@ -3,7 +3,7 @@
 FROM node:12-alpine AS build-stage
 # COPY package.json package-lock.json /app
 WORKDIR /app
-COPY . .
+COPY youtubeclone-frontend .
 COPY package*.json ./
 RUN npm --verbose install
 #RUN npm install -g serve
@@ -15,7 +15,7 @@ CMD ["pm2", "serve", "build", "5000", "--no-daemon"]
 FROM node:22-alpine3.19 AS release-stage
 # COPY package.json package-lock.json /app
 WORKDIR /backend
-COPY . .
+COPY youtubeclone-backend .
 COPY package*.json ./
 RUN npm --verbose install
 #RUN npm install -g serve
