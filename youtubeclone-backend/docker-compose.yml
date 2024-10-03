@@ -2,14 +2,14 @@ volumes:
   pg_data_youtubeclone:
 
 networks:
-  youtube-network:
+  youtube_network:
     driver: bridge
     ipam:
      driver: default
      config:
        - subnet: 172.198.0.0/16
     driver_opts:
-      com.docker.network.bridge.name: br_youtubeclone
+      com.docker.network.bridge.name: br_youtube_clone
 
 services:
   backend:
@@ -23,7 +23,7 @@ services:
       - ./youtubeclone-frontend:/frontend
       - ./static:/backend/static
     networks:
-      - youtube-network
+      - youtube_network
     env_file: 
       - .env
     # environment:
@@ -37,7 +37,7 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - youtube-network
+      - youtube_network
     volumes:
       - pg_data_youtubeclone:/var/lib/postgresql/data/
       - ./backups:/var/backups
