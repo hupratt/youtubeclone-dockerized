@@ -42,7 +42,7 @@ services:
       - ./backups:/var/backups
 
   frontend:
-    container_name: frontend
+    container_name: youtubeclone-frontend
     build: ./youtubeclone-frontend
     env_file:
       - youtubeclone-frontend/.env
