@@ -21,7 +21,7 @@ services:
     volumes:
       - ./youtubeclone-backend:/backend
       - ./static:/backend/static
-      - ./youtubeclone-frontend/public:/app/public
+      - ./youtubeclone-frontend:/app
     networks:
       - youtube-network
     env_file: youtubeclone-backend/.env
