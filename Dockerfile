@@ -5,6 +5,7 @@ COPY youtubeclone-frontend/src .
 COPY youtubeclone-frontend/package.json .
 COPY youtubeclone-frontend/*.lock .
 COPY youtubeclone-frontend/node_modules .
+COPY youtubeclone-frontend/public .
 COPY youtubeclone-frontend/.env .
 RUN npm --verbose install
 #RUN npm install -g serve
@@ -20,7 +21,8 @@ COPY youtubeclone-backend/src .
 COPY youtubeclone-backend/package.json .
 COPY youtubeclone-backend/*.lock .
 COPY youtubeclone-backend/node_modules .
+COPY youtubeclone-backend/public .
 COPY youtubeclone-backend/.env .
 RUN npm --verbose install
 CMD ["npm", "start"]
-COPY --from=build-stage /app/public /backend/public
+COPY --from=build-stage /app/build /backend/build
