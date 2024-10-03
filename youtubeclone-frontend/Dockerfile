@@ -3,7 +3,7 @@
 FROM node:12-alpine AS build-stage
 # COPY package.json package-lock.json /app
 WORKDIR /app
-COPY youtubeclone-frontend .
+COPY . .
 COPY package*.json ./
 RUN npm --verbose install
 #RUN npm install -g serve
