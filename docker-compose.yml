@@ -5,15 +5,15 @@ volumes:
 services:
   backend:
     container_name: youtubeclone-backend
-    build: .
+    build: ./youtubeclone-backend
     restart: always
     ports:
       - "3000:3000"
     volumes:
-      - .:/backend
+      - ./youtubeclone-backend:/backend
       - ./static:/backend/static
     env_file: 
-      - .env
+      - ./youtubeclone-backend/.env
     # environment:
     #   DEBUG: 'true'
 
@@ -27,3 +27,15 @@ services:
     volumes:
       - pg_data_youtubeclone:/var/lib/postgresql/data/
       - ./backups:/var/backups
+
+  frontend:
+    container_name: frontend
+    build: ./youtubeclone-frontend
+    env_file:
+      - ./youtubeclone-frontend/.env
+    networks:
+      - youtube-network
+    ports:
+      - 5000:5000
+    volumes:
+      - ./youtubeclone-frontend:/app

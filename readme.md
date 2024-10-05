@@ -4,6 +4,8 @@ docker exec -it -u postgres youtubeclone-dockerized-postgres-1 bash
 
 CREATE ROLE ubuntu WITH LOGIN PASSWORD 'XXXXXXXXXXXXXXXXXXXXXXXX';
 
+CREATE DATABASE youtubeclone;
+
 GRANT ALL PRIVILEGES ON DATABASE youtubeclone to ubuntu;
 
 \q
