@@ -1,6 +1,15 @@
 volumes:
   pg_data_youtubeclone:
 
+networks:
+  youtube-network:
+    driver: bridge
+    ipam:
+     driver: default
+     config:
+       - subnet: 172.198.0.0/16
+    driver_opts:
+      com.docker.network.bridge.name: br_youtubeclone
 
 services:
   backend:
@@ -11,9 +20,12 @@ services:
       - "3000:3000"
     volumes:
       - ./youtubeclone-backend:/backend
+      - ./youtubeclone-backend/node_modules:/backend/node_modules
       - ./static:/backend/static
     env_file: 
       - ./youtubeclone-backend/.env
+    networks:
+      - youtube-network
     # environment:
     #   DEBUG: 'true'
 
@@ -21,7 +33,7 @@ services:
     restart: always
     image: postgres:12
     env_file:
-      - .env
+      - ./youtubeclone-backend/.env
     ports:
       - "5432:5432"
     volumes:
@@ -29,7 +41,7 @@ services:
       - ./backups:/var/backups
 
   frontend:
-    container_name: frontend
+    container_name: youtubeclone-frontend
     build: ./youtubeclone-frontend
     env_file:
       - ./youtubeclone-frontend/.env
@@ -39,3 +51,4 @@ services:
       - 5000:5000
     volumes:
       - ./youtubeclone-frontend:/app
+      - ./youtubeclone-frontend/node_modules:/app/node_modules
