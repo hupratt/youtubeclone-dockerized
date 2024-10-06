@@ -23,7 +23,6 @@ services:
       - ./youtubeclone-backend/node_modules:/backend/node_modules
       - ./static:/backend/static
       - ./vids:/backend/public/uploads/netgear
-      - ./vids:/backend/static/uploads/netgear
     env_file: 
       - ./youtubeclone-backend/.env
     networks:
